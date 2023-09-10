@@ -279,4 +279,6 @@ Syntax: (?<!Y)X, where X is the pattern you want to match, and Y is the conditio
 
 ## Author
 
-A short section about the author with a link to the author's GitHub profile (replace with your information and a link to your profile)
+Thank you again and I hope that you found this tutorial helpful and found helpful info.
+
+ if there is anything more you wish to learn check out my Github @ https://github.com/GrayCoded.https://github.com/GrayCoded
