@@ -179,19 +179,103 @@ This capturing group encloses the path part of the URL. It captures a sequence o
 
 ### Bracket Expressions
 
+Bracket expressions, also known as character classes, are used in regular expressions to specify a set of characters that can match at a particular position in the input string. Bracket expressions are enclosed in square brackets `[...]` and allow you to define a character set or a range of characters that should be considered a valid match.
 
+In the regular expression [above](#regex) there are several bracket expressions defined under the [character classes](#character-classes) and captures defined by parentheses `()`.
 
 ### Greedy and Lazy Match
 
+The regular expression [above](#regex) does not explicitly use greedy or lazy quantifiers. Instead, it relies on the default greedy behavior of quantifiers.
 
+In this regular expression, you can find quantifiers like `*` and `?`, but they are not made lazy with the `?` modifier. Here's how they behave:
+
+```JS
+`*` (asterisk)
+```
+
+ The `*` quantifier is greedy by default. It matches as many characters as possible while still allowing the overall pattern to match. For example, in `[\da-z\.-]+`, the `+` (which is one or more) is also greedy, so it will match as many characters as possible from the character class `[\da-z\.-]`.
+
+```JS
+`?` (question mark)
+```
+
+ The `?` quantifier, when used after another quantifier like `*?` or `+?`, makes that quantifier lazy, but in this expression, it's not applied to any quantifiers. For example, `([\/\w \.-]*)*` uses `*` without `?`, so it is also greedy.
+
+>NOTE: In this expression, without the `?` modifier after any quantifiers, the default behavior is to be greedy, matching as much as possible while still allowing the overall pattern to match. If you have specific requirements for lazy matching in this regex, you would need to modify the quantifiers accordingly.
 
 ### Boundaries
+
+The regular expression [above](#regex) does use boundary assertions. Here is what assertions are in this expression.
+
+>Start-of-Line Anchor ^
+
+The ^ symbol at the very beginning of the regex, /^(https?://)?..., is a start-of-line anchor. It asserts that the match must begin at the start of a line or the start of the input string.
+
+>End-of-Line Anchor $
+
+The $ symbol at the end of the regex, .../?$/, is an end-of-line anchor. It asserts that the match must end at the end of a line or the end of the input string.
 
 
 ### Back-references
 
+The regular expression does not have any back-references. However, here is an example.
+
+ ```JS
+ `\1`, `\2`, etc.
+ ```
+ These refer to the first, second, third, etc., capturing group in your regular expression pattern.
+
+   - `\1` refers to the text captured by the first capturing group.
+   - `\2` refers to the text captured by the second capturing group.
+   - And so on.
+
+
+>NOTE: Back-references are a powerful feature in regular expressions, allowing you to perform more complex matching tasks, such as finding repeated words, validating repeated patterns, and more.
+
 
 ### Look-ahead and Look-behind
+
+Look-ahead and look-behind assertions are advanced features in regular expressions that allow you to check for the presence or absence of certain patterns ahead of or behind the current matching position without including that text in the match itself. They are also known as zero-width assertions because they do not consume characters in the input string.
+
+Positive Look-ahead Assertion ((?=...)):
+
+```JS
+//Example:
+ /apple(?=s)/ would match "apple" only if it's followed by "s."
+```
+This assertion checks whether a pattern is present immediately after the current position.
+Syntax: X(?=Y), where X is the pattern you want to match, and Y is the condition that must be satisfied.
+
+Negative Look-ahead Assertion ((?!...)):
+
+```JS
+//Example: 
+/apple(?!s)/ would match "apple" only if it's not followed by "s."
+```
+
+This assertion checks whether a pattern is not present immediately after the current position.
+Syntax: X(?!Y), where X is the pattern you want to match, and Y is the condition that must not be present.
+
+Positive Look-behind Assertion (?<=...):
+
+```JS
+//Example: 
+/(?<=\$)\d+/ would match a sequence of digits that are preceded by a dollar sign, like "$100."
+```
+This assertion checks whether a pattern is present immediately before the current position.
+Syntax: (?<=Y)X, where X is the pattern you want to match, and Y is the condition that must be satisfied.
+
+
+Negative Look-behind Assertion (?<!...):
+
+```JS
+//Example: 
+/(?<!\$)\d+/ would match a sequence of digits that are not preceded by a dollar sign.
+```
+This assertion checks whether a pattern is not present immediately before the current position.
+Syntax: (?<!Y)X, where X is the pattern you want to match, and Y is the condition that must not be present.
+
+>NOTE: Look-ahead and look-behind assertions are useful for specifying complex conditions when you want to ensure that certain patterns exist or do not exist before or after the main pattern you're trying to match. They are particularly valuable in situations where you need to extract or validate data based on context.
 
 ## Author
 
